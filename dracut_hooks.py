@@ -82,7 +82,7 @@ def execute_dracut(
     line,
     action="install",
     generate_fallback=True,
-    args=["--force", "--no-hostonly-cmdline", "--quiet"],
+    args=["--force", "--no-hostonly-cmdline"],
 ):
     pattern = "usr/lib/modules/(.*)/pkgbase"
     match = re.match(pattern, line)
@@ -126,9 +126,19 @@ def execute_dracut(
 
             for command in commands:
                 LOGGER.info("Executing: {}".format(" ".join(command)))
-                return_code = subprocess.check_call(command)
-                del return_code
-
+                with subprocess.Popen(
+                    command,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                ) as p:
+                    for line in iter(p.stderr.readline, ""):
+                        line = line.strip()
+                        if line:
+                            old_name = LOGGER.name
+                            LOGGER.name = "dracut"
+                            LOGGER.info(line)
+                            LOGGER.name = old_name
             return True
 
         case "remove":

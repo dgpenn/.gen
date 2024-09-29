@@ -7,10 +7,14 @@ PARENT=$(dirname "$0")
 source "$PARENT/common.sh"
 PACKAGES="git base-devel"
 
-function configure_yay {
+function install_yay {
 
 $LOG -i "Installing packages"
-pacman-need
+pacman-need "$PACKAGES"
+
+}
+
+function configure_yay {
 
 $LOG -i "Cloning yay's repository"
 cd /tmp || exit 1
@@ -41,5 +45,10 @@ fi
 
 }
 
-require_user
-configure_yay
+if [[ $EUID -eq 0 ]]; then
+    require_root
+    install_yay
+else
+    require_user
+    configure_yay
+fi

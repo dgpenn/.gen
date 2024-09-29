@@ -54,15 +54,3 @@ function pacman-need {
     $installer --sync --quiet --refresh --sysupgrade --needed --noconfirm $extra_options "${packages[@]}" 2>&1 | $LOG -n $installer -i -
     sleep 0.5 # Wait to ensure consecutive calls do not lock pacman database
 }
-
-# This is a shim and does not work with yay
-function sudo_exec {
-    if [[ "$EUID" -eq 0 ]]; then
-        $LOG -i "Detected EUID (${EUID})"
-    else
-        $LOG -i "Script requires root privileges"
-        $LOG -i "Detected non-zero EUID (${EUID})"
-        $LOG -i "Re-executing script with sudo"
-        exec sudo "$0" "$@"
-    fi
-}

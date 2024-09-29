@@ -1,0 +1,9 @@
+{
+    "xorg": [
+        "xorg-server",
+        "xorg-xinit",
+        "xorg-twm",
+        "xorg-xauth",
+        "xterm"
+    ]
+}

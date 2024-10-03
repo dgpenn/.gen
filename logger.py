@@ -35,6 +35,19 @@ def easy_logger(name: str, level_name: str) -> logging.Logger:
     return logger
 
 
+def logger_external(logger: logging.Logger) -> logging.Logger:
+    logger.propagate = False
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter(
+        fmt="%(asctime)s.%(msecs)03d - %(name)s - EXTERNAL - %(message)s",
+        datefmt="%I:%M:%S",
+    )
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    logger.setLevel(logging.INFO)
+    return logger
+
+
 def main():
     log_level_names = ["NOTSET", "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
 
@@ -55,6 +68,12 @@ def main():
         choices=log_level_names,
     )
     messages = parser.add_mutually_exclusive_group(required=True)
+    messages.add_argument(
+        "-x",
+        "--external",
+        action="store_true",
+        help="Log external message. This always prints.",
+    )
     messages.add_argument(
         "-d", "--debug", action="store_true", help="Log debug message"
     )
@@ -82,7 +101,10 @@ def main():
             print("")
         elif text:
             logger_function = None
-            if args.debug:
+            if args.external:
+                logger = logger_external(logger)
+                logger_function = logger.info
+            elif args.debug:
                 logger_function = logger.debug
             elif args.info:
                 logger_function = logger.info

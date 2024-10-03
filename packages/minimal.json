@@ -9,6 +9,7 @@
         "dracut",
         "grub",
         "efibootmgr",
+        "dmidecode",
         "tpm2-tools",
         "cryptsetup",
         "rng-tools",

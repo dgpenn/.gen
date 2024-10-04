@@ -75,7 +75,7 @@ fi
 
 # Configure pkgfile
 $LOG -i "Updating pkgfile database"
-pkgfile --raw --update | $LOG -n pkgfile -i -
+pkgfile --raw --update | $LOG -n pkgfile -x -
 
 $LOG -i "Enabling daily pkgfile timer"
 systemctl enable pkgfile-update.timer

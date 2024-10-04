@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import argparse
-import logging
 import os
 import re
 import shutil
@@ -10,14 +9,11 @@ import sys
 import textwrap
 from pathlib import Path
 
+from logger import easy_logger
+
 THIS_FILE = Path(sys.argv[0]).resolve()
 SCRIPT_NAME = THIS_FILE.name
-LOGGER = logging.getLogger(SCRIPT_NAME)
-logging.basicConfig(
-    format="%(asctime)s.%(msecs)03d - %(name)s - %(levelname)s - %(message)s",
-    datefmt="%I:%M:%S",
-    level=logging.INFO,
-)
+LOGGER = easy_logger(SCRIPT_NAME, "INFO")
 
 
 def dracut_hooks(action="install", pacman_hooks_dir=Path("/etc/pacman.d/hooks")):
@@ -153,14 +149,20 @@ def execute_dracut(
 def setup(install_directory=Path("/usr/local/bin")):
     installed_script = install_directory.joinpath(SCRIPT_NAME)
 
+    # TODO: This needs a better way to be added or added elsewhere
+    installed_logger = install_directory.joinpath("logger.py")
+
     try:
         shutil.copy(THIS_FILE, installed_script)
         LOGGER.info("Installed script as {}".format(installed_script))
+        shutil.copy("logger.py", installed_logger)
     except shutil.SameFileError:
         return
 
     shutil.chown(installed_script, user="root", group="root")
     installed_script.chmod(0o500)
+    shutil.chown(installed_logger, user="root", group="root")
+    installed_logger.chmod(0o500)
     LOGGER.warning("Please ensure {} is in system PATH".format(install_directory))
 
 

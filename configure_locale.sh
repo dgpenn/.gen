@@ -20,7 +20,7 @@ for locale in ${GEN_LOCALES[@]}; do
     sed -ie "s/^\#${locale}/${locale}/g" "/etc/locale.gen"
 done
 
-locale-gen | $LOG -n locale-gen -i -
+locale-gen | $LOG -n locale-gen -x -
 
 }
 

@@ -32,7 +32,7 @@ function bootstrap_mnt {
         bootstrap_pkgs+=$(jq ".$package_group | join(\" \")" "$group_json" | sed -e 's/\"//g')
         bootstrap_pkgs+=" "
     done
-    pacstrap -K /mnt $bootstrap_pkgs | $LOG -n pacstrap -i -
+    pacstrap -K /mnt $bootstrap_pkgs | $LOG -n pacstrap -x -
 }
 
 function require_root {
@@ -78,6 +78,6 @@ function pacman-need {
     $LOG -i "Installing needed packages"
     $LOG -i "Set \"$installer\" as installer"
     $LOG -i "Running $installer"
-    $installer --sync --quiet --refresh --sysupgrade --needed --noconfirm $extra_options "${packages[@]}" 2>&1 | $LOG -n "$installer" -i -
+    $installer --sync --quiet --refresh --sysupgrade --needed --noconfirm $extra_options "${packages[@]}" 2>&1 | $LOG -n "$installer" -x -
     sleep 0.5 # Wait to ensure consecutive calls do not lock pacman database
 }

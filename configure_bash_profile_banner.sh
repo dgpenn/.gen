@@ -33,6 +33,10 @@ function print_update_msg {
     fi
 }
 
+if [[ $EUID -eq 0 ]]; then
+    return
+fi
+
 # Print login messages
 print_welcome_msg
 print_ssh_msg

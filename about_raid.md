@@ -66,11 +66,11 @@ This machine has the following names:
 
     Make a single partition to span each drive
 
-        parted -s mkpart ext4 1MiB 19073947MiBMiB /dev/sdb
-        parted -s mkpart ext4 1MiB 19073947MiBMiB /dev/sdc
-        parted -s mkpart ext4 1MiB 19073947MiBMiB /dev/sdd
-        parted -s mkpart ext4 1MiB 19073947MiBMiB /dev/sde
-        parted -s mkpart ext4 1MiB 19073947MiBMiB /dev/sdf
+        parted -s mkpart ext4 1MiB 19073947MiB /dev/sdb
+        parted -s mkpart ext4 1MiB 19073947MiB /dev/sdc
+        parted -s mkpart ext4 1MiB 19073947MiB /dev/sdd
+        parted -s mkpart ext4 1MiB 19073947MiB /dev/sde
+        parted -s mkpart ext4 1MiB 19073947MiB /dev/sdf
 
     Flag each new device as part of a raid array
 

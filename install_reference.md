@@ -22,7 +22,7 @@
     pacman -Sy archlinux-keyring
     pacman -Sy git
 
-    git clone https://github.com/dgpenn/dots.git
+    git clone https://github.com/dgpenn/.gen.git
 
 ## Partition Disk
 

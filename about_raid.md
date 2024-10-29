@@ -36,15 +36,17 @@ This machine has the following names:
 
         pacman -S mdadm lvm2
 
-2.  Verify device names and erase drives as needed. Most drives are physically labeled with serial numbers.
+2.  Verify device names and erase drives or partitions as needed. Most drives are physically labeled with serial numbers. Note that if drives are part of an active array, the array will need to be deactived first.
 
         lsblk -o name,serial,size
 
-        mdadm --misc --zero-superblock /dev/sdb
-        mdadm --misc --zero-superblock /dev/sdc
-        mdadm --misc --zero-superblock /dev/sdd
-        mdadm --misc --zero-superblock /dev/sde
-        mdadm --misc --zero-superblock /dev/sdf
+        # mdadm --stop /dev/md127 # stop existing array
+
+        mdadm /dev/sdb1 --misc --zero-superblock
+        mdadm /dev/sdc1 --misc --zero-superblock
+        mdadm /dev/sdd1 --misc --zero-superblock
+        mdadm /dev/sde1 --misc --zero-superblock
+        mdadm /dev/sdf1 --misc --zero-superblock
 
 3.  Partition each drive. Leave a small amount of space unused to ensure any drive replacements won't be too small.
 

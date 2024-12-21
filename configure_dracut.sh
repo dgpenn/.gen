@@ -21,8 +21,6 @@ cat <<-'EOF' > /etc/dracut.conf.d/custom.conf
     omit_dracutmodules+=" brltty "
 EOF
 
-done
-
 $LOG -i "Running dracut_hooks.py"
 if [[ -f dracut_hooks.py ]]; then
     python "$PARENT"/dracut_hooks.py --setup

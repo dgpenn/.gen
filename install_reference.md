@@ -120,6 +120,7 @@ E.g. As an example for the host "skynet" and domain "example.com"
     # 127.0.0.1 localhost
     # ::1       localhost
     # 127.0.1.1 skynet.example.com skynet
+    # The above should be a permament ip address if it is permament
 
 Additional entries for other machines can be added as additional entries.
 

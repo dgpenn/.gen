@@ -16,11 +16,8 @@ function configure_dracut {
 $LOG -i "Installing packages"
 pacman-need
 
-for module in "${MODULES_BLACKLIST[@]}"; do
-    $LOG -i "Blacklisting $module"
-    mkdir -p /etc/dracut.conf.d/
-
-cat <<-'EOF' > /etc/dracut.conf.d/"no_${module}.conf"
+mkdir -p /etc/dracut.conf.d/
+cat <<-'EOF' > /etc/dracut.conf.d/custom.conf
     omit_dracutmodules+=" brltty "
 EOF
 

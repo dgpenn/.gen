@@ -42,6 +42,7 @@
         "perl-archive-zip",
         "pkgfile",
         "pacman-contrib",
+        "arch-install-scripts",
         "mlocate",
         "reflector",
         "networkmanager",

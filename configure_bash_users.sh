@@ -44,6 +44,9 @@ alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias sudo='sudo -v; sudo '
 alias diff='diff --color=auto'
+alias reboot='sudo reboot'
+alias halt='sudo halt'
+alias poweroff='sudo poweroff'
 
 if type whipper > /dev/null 2>&1; then
     alias arip='whipper cd rip --unknown'

@@ -34,11 +34,14 @@ cat <<-EOF > /etc/ssh/banner
 
 This is a *private* server.
 Please disconnect if you are not authorized.
+
 EOF
 
 $LOG -i "Writing sshd config"
 cat <<-EOF > /etc/ssh/sshd_config
 Match all
+
+Include /etc/ssh/sshd_config.d/*.conf
 
 Port 22
 

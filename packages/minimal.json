@@ -79,6 +79,7 @@
         "python",
         "python-setuptools",
         "python-markdown",
-        "tk"
+        "tk",
+        "acpi"
     ]
 }

@@ -1,0 +1,57 @@
+[Unit]
+Description=Jellyfin - Podman Quadlet
+
+# This file should be placed at ~/.config/containers/systemd/jellyfin.container
+# After placement, load and start/enable jellyfin
+# `systemctl --user daemon-reload`
+# `systemctl --user start jellyfin`
+
+# Check for errors
+# `journalctl --user -u jellyfin`
+
+# References 
+# - https://jellyfin.org/docs/general/installation/container/
+
+[Container]
+ContainerName=jellyfin
+Image=docker.io/jellyfin/jellyfin:latest
+
+# This defines the container network.
+# This should be a file in the *same* folder as this file.
+Network=podnet.network
+
+# Allow automatic updates
+# To ensure automatic updates are enabled.
+# `systemctl --user enable podman-auto-update.timer --now`
+AutoUpdate=registry
+
+# This is direct map from host's 8096 TCP port to container's 8096 TCP port
+# The port will need to be exposed in the firewall.
+PublishPort=8096:8096/tcp
+
+# Ensure the current user id is mappted to non-root user id in container
+UserNS=keep-id
+
+# Set Timezone
+Environment=TZ=America/New_York
+
+# Enable hardware acceleration by passing through render
+# If SELinux is enabled, use `sudo setsebool -P container_use_dri_devices 1` to allow the passthrough
+AddDevice=/dev/dri/:/dev/dri/
+
+# Map user ~/.jellyfin/config to container /config
+Volume=%h/.jellyfin/config:/config:Z
+
+# Map user ~/.jellyfin/cache to container /cache
+Volume=%h/.jellyfin/cache:/cache:Z
+
+# Pass host's storage directory (i.e. /net/turtle) to container /media
+Volume=/net/turtle:/media:Z
+
+[Service]
+SuccessExitStatus=0 143
+Restart=on-failure
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

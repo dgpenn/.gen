@@ -1,0 +1,21 @@
+[Unit]
+Description=Nginx - Podman Quadlet
+
+[Container]
+ContainerName=nginx
+Image=docker.io/nginx/nginx:latest
+PublishPort=8080:80/tcp
+Network=podnet.network
+AutoUpdate=registry
+
+# Ensure the current user id is mapped to non-root user id in container
+UserNS=keep-id
+
+# Set Timezone
+Environment=TZ=America/New_York
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=default.target

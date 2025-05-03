@@ -1,0 +1,22 @@
+[Unit]
+Description=Podnet Network (Podman)
+After=network-online.target
+
+# This exists to create a custom container network.
+# This separate from the host's network.
+# This file in particular is just to keep the container away from the normal network.
+# The necessary ports will be forwarded from the containers as needed.
+
+[Network]
+NetworkName=podnet
+
+# The following are randomly generated if not specified.
+Subnet=10.10.10.0/24
+Gateway=10.10.10.1
+Label=podnet
+
+# This should be 1.1.1.1 (Cloudflare) for hosts not using local DNS.
+DNS=192.168.1.1
+
+[Install]
+WantedBy=default.target

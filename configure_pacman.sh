@@ -23,7 +23,6 @@ OPTIONS=(
 'CheckSpace'
 'ParallelDownloads = 20'
 'VerbosePkgLists'
-'ILoveCandy'
 )
 
 options_to_apply=''

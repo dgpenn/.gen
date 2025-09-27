@@ -5,7 +5,7 @@
 
 PARENT=$(dirname "$0")
 source "$PARENT/common.sh"
-PACKAGES='pipewire pipewire-alsa pipewire-jack pipewire-pulse libpulse gst-plugin-pipewire wireplumber'
+PACKAGES='pipewire pipewire-alsa pipewire-pulse wireplumber'
 
 function configure_pipewire {
 

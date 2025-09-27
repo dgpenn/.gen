@@ -85,7 +85,7 @@ mkdir -p /etc/xdg/reflector
 cat <<-EOF > /etc/xdg/reflector/reflector.conf
 --save /etc/pacman.d/mirrorlist
 --protocol https
---country CH,IS,RO,ES
+--country US
 --score 50
 --sort rate
 EOF
